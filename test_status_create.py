@@ -1,19 +1,16 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from custom_wait_conditions import presence_of_N_elements_located
+def test_status_create(logged_user, app):
+    old_posts = app.get_posts()
+    app.create_post("Great day!!!")
+    app.wait_new_post(len(old_posts))
+    new_post = app.get_posts()[0]
+    assert new_post.text == "Great day!!!"
+    # assert new_post.author == logged_user
+    # assert new_post.time == "within 1 min"
 
 
-def test_status_create(driver, logged_user):
-    status_elements = driver.find_elements(By.CLASS_NAME, "ow_newsfeed_item")
-    # Input text in Status field
-    driver.find_element_by_name('status').click()
-    driver.find_element_by_name('status').send_keys('How are you?!!!!!')
-    # Post status
-    driver.find_element_by_name('save').click()
-    # Wait new post appeared
-    wait = WebDriverWait(driver, 5)
-    status_elements = wait.until(presence_of_N_elements_located(
-        (By.CLASS_NAME, "ow_newsfeed_item"),
-        len(status_elements)+1),
-        message="Can't find correct count of elements"
-    )
+# def test_set_like_to_post(logged_user, app):
+#     post = app.get_posts()[0]
+#     likes_before = post.get_likes()
+#     post.set_like()
+#     assert post.get_likes() == likes_before + 1
+
