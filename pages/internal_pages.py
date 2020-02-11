@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions
 
 from pages.base_page import Page
+from pages.locators import ACTIVE_LOCATOR
 
 
 class SignInPage(Page):
@@ -39,4 +40,5 @@ class MainPage(InternalPage):
 
 class DashboardPage(Page):
     def is_this_page(self):
-        return self.driver.find_element_by_class_name("active").text == "DASHBOARD"
+        print("\n!!!!",self.find_visible_element((By.CSS_SELECTOR, ".ow_responsive_menu .active")).text, "!!!!")
+        return self.find_visible_element(*ACTIVE_LOCATOR).text == "DASHBOARD"
