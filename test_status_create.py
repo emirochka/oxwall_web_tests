@@ -1,9 +1,16 @@
 from pages.internal_pages import DashboardPage
 import pytest
 
+post_text_list = [
+    "Happy day!!!1235467",
+    "!@#%^&*(_)_ ",
+    "Привет, мир!"
+]
 
-def test_post_create(logged_user, driver):
-    input_text = "Great day!"
+
+@pytest.mark.parametrize("input_text", post_text_list, ids=["Alhanum", "Symbols", "Cyrilic"])
+def test_post_create(logged_user, driver, input_text):
+
     dashboard_page = DashboardPage(driver)
     old_posts = dashboard_page.posts
     dashboard_page.create_post(input_text)
