@@ -1,14 +1,13 @@
 from pages.internal_pages import DashboardPage
 import pytest
 
-post_text_list = [
-    "Happy day!!!1235467",
-    "!@#%^&*(_)_ ",
-    "Привет, мир!"
-]
+import json
+
+with open("data/posts.json", encoding="utf8") as f:
+    post_text_list = json.load(f)
 
 
-@pytest.mark.parametrize("input_text", post_text_list, ids=["Alhanum", "Symbols", "Cyrilic"])
+@pytest.mark.parametrize("input_text", post_text_list)
 def test_post_create(logged_user, driver, input_text):
 
     dashboard_page = DashboardPage(driver)

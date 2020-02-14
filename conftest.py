@@ -3,6 +3,7 @@ from selenium import webdriver
 
 from oxwall_app import Oxwall
 from pages.internal_pages import MainPage
+from value_object.user import User
 
 
 @pytest.fixture()
@@ -38,3 +39,18 @@ def logged_user(driver):
     dash_page = sign_in_page.submit()
     yield username
     # dash_page.logout()
+
+
+import json
+import os.path
+
+filename = os.path.join(os.path.dirname(__file__), "data", "users.json")
+
+with open(filename, encoding="utf8") as f:
+    # user_list = json.load(f
+    users = [User(**u) for u in json.load(f)]
+
+
+@pytest.fixture(params=users, ids=[str(u) for u in users])
+def user(request):
+    return request.param
