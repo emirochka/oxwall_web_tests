@@ -72,7 +72,7 @@ class MainPage(InternalPage):
     pass
 
 
-class DashboardPage(Page):
+class DashboardPage(InternalPage):
     STATUS_BLOCK = (By.XPATH, "//li[contains(@id, 'action-feed')]")
     # ??? STATUS_TEXT = (By.CLASS_NAME, 'ow_newsfeed_content')
     STATUS_USER = (By.CSS_SELECTOR, ".ow_newsfeed_string > a")
@@ -104,4 +104,4 @@ class DashboardPage(Page):
         )
 
     def is_this_page(self):
-        return self.find_visible_element(*ACTIVE_LOCATOR).text == "DASHBOARD"
+        return self.find_visible_element(ACTIVE_LOCATOR).text == "DASHBOARD"
