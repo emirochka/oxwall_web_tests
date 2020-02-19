@@ -22,7 +22,9 @@ def test_post_create(logged_user, driver, input_text):
     dashboard_page.create_post(input_text)
     dashboard_page.wait_new_post(len(old_posts))
     new_post = dashboard_page.posts[0]
-    assert input_text in new_post.text
+    assert new_post.text == input_text
+    assert new_post.time == "within 1 minute"
+    assert new_post.user == logged_user
 
     # old_posts = app.get_posts()
     # app.create_post("Great day!!!")
