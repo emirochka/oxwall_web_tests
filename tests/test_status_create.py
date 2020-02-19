@@ -1,15 +1,22 @@
+from conftest import PROJECT_DIR
 from pages.internal_pages import DashboardPage
 import pytest
-
 import json
+from data.random_string import random_string
+import os.path
 
-with open("data/posts.json", encoding="utf8") as f:
+filename = os.path.join(PROJECT_DIR, "data", "posts.json")
+
+
+with open(filename, encoding="utf8") as f:
     post_text_list = json.load(f)
+
+for _ in range(3):
+    post_text_list.append(random_string(maxlen=1000, spaces=True, whitespases=True))
 
 
 @pytest.mark.parametrize("input_text", post_text_list)
 def test_post_create(logged_user, driver, input_text):
-
     dashboard_page = DashboardPage(driver)
     old_posts = dashboard_page.posts
     dashboard_page.create_post(input_text)

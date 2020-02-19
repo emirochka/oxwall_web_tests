@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
-
+import json
+import os.path
 from oxwall_app import Oxwall
 from pages.internal_pages import MainPage
 from value_object.user import User
@@ -41,10 +42,8 @@ def logged_user(driver):
     # dash_page.logout()
 
 
-import json
-import os.path
-
-filename = os.path.join(os.path.dirname(__file__), "data", "users.json")
+PROJECT_DIR = os.path.dirname(__file__)
+filename = os.path.join(PROJECT_DIR, "data", "users.json")
 
 with open(filename, encoding="utf8") as f:
     # user_list = json.load(f
