@@ -1,14 +1,23 @@
 [
     {
+        "username": "test10",
+        "password": "secret",
+        "real_name": "Tester Tester",
+        "email": "test10@test.com",
+        "is_admin": false
+    },
+    {
+        "username": "test19",
+        "password": "secret",
+        "real_name": "Tester",
+        "email": "test9@test.com",
+        "is_admin": false
+    },
+        {
         "username": "admin",
         "password": "pass",
         "real_name": "Admin",
+        "email": "admin@gmail.com",
         "is_admin": true
-    },
-    {
-        "username": "test9",
-        "password": "secret",
-        "real_name": "Tester",
-        "is_admin": false
     }
 ]
