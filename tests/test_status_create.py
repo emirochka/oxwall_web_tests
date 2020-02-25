@@ -16,10 +16,11 @@ for _ in range(3):
 
 
 @pytest.mark.parametrize("input_text", post_text_list)
-def test_post_create(logged_user, driver, input_text):
+def test_post_create(logged_user, driver, input_text, db):
     dashboard_page = DashboardPage(driver)
     old_posts = dashboard_page.posts
     dashboard_page.create_post(input_text)
+    assert db.get_last_text_post() == input_text
     dashboard_page.wait_new_post(len(old_posts))
     new_post = dashboard_page.posts[0]
     assert new_post.text == input_text

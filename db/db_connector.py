@@ -1,3 +1,4 @@
+import json
 import pymysql
 
 from value_object.user import User
@@ -64,6 +65,18 @@ class OxwallDB:
             sql = f'''DELETE FROM `ow_base_user`
                       WHERE `ow_base_user`.`username` = "{user.username}"'''
             cursor.execute(sql)
+
+    def get_last_text_post(self):
+        """ Get post with maximum id that is last added """
+        with self.__connection.cursor() as cursor:
+            sql = """SELECT * FROM `ow_newsfeed_action`
+                     WHERE `id`= (SELECT MAX(`id`) FROM `ow_newsfeed_action` WHERE `entityType`="user-status")
+                     AND `entityType`="user-status"
+                     """
+            cursor.execute(sql)
+            response = cursor.fetchone()
+            data = json.loads(response["data"])["status"]
+        return data
 
 
 if __name__ == "__main__":
