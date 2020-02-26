@@ -4,16 +4,33 @@ import json
 import os.path
 
 from db.db_connector import OxwallDB
-from oxwall_app import Oxwall
+from pages.oxwall_app import Oxwall
 from pages.internal_pages import MainPage
 from value_object.user import User
 
+PROJECT_DIR = os.path.dirname(__file__)
+
+
+def pytest_addoption(parser):
+    parser.addoption("--config", action="store", default="config.json",
+                     help="project config file name")
+    # parser.addoption("--browser", action="store", default="Chrome",
+    #                  help="project config file name")
+
+
+@pytest.fixture(scope="session")
+def config(request):
+    filename = request.config.getoption("--config")
+    with open(os.path.join(PROJECT_DIR, filename)) as f:
+        return json.load(f)
+
 
 @pytest.fixture()
-def driver():
-    driver = webdriver.Chrome()
+def driver(config, selenium, base_url):
+    driver = selenium
     driver.implicitly_wait(5)
-    base_url = 'http://127.0.0.1:81/oxwall/'
+    driver.maximize_window()
+    # base_url = config["web"]["base_url"]
     driver.get(base_url)
     yield driver
     driver.quit()
@@ -25,16 +42,12 @@ def app(driver):
 
 
 @pytest.fixture(scope="session")
-def db():
-    db = OxwallDB(host='localhost',
-                  user='root',
-                  password='mysql',
-                  db='oxwa166')
+def db(config):
+    db = OxwallDB(**config['db'])
     yield db
     db.close()
 
 
-PROJECT_DIR = os.path.dirname(__file__)
 filename = os.path.join(PROJECT_DIR, "data", "users.json")
 
 with open(filename, encoding="utf8") as f:
@@ -51,9 +64,10 @@ def user(request, db):
     if user.username != "admin":
         db.delete_user(user)
 
+
 @pytest.fixture()
-def logged_user(driver):
-    user = User(username="admin", password="pass", real_name="Admin")
+def logged_user(driver, config):
+    user = User(**config["web"]["user"])
     main_page = MainPage(driver)
     sign_in_page = main_page.sign_in_click()
     sign_in_page.fill_form(user.username, user.password)

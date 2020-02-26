@@ -1,0 +1,17 @@
+{
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "password": "mysql",
+    "db": "oxwa166"
+  },
+  "web":{
+    "user": {
+      "username": "demo",
+      "password": "demo",
+      "email": "admin@127.0.0.1",
+      "real_name": "Demo"
+    },
+    "base_url": "http://demo.oxwall.com/"
+  }
+}

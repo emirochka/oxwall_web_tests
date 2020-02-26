@@ -1,6 +1,8 @@
 from pages.internal_pages import MainPage
+import pytest
 
 
+@pytest.mark.smoke
 def test_login(driver, user):
     main_page = MainPage(driver)
     sign_in_page = main_page.sign_in_click()
