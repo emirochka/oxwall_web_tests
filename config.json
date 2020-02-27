@@ -3,7 +3,7 @@
     "host": "localhost",
     "user": "root",
     "password": "mysql",
-    "db": "oxwa166"
+    "db": "oxwa767"
   },
   "web":{
     "user": {
@@ -12,6 +12,6 @@
       "email": "admin@127.0.0.1",
       "real_name": "Admin"
     },
-    "base_url": "http://127.0.0.1:81/oxwall/"
+    "base_url": "http://127.0.0.1/oxwall/"
   }
 }
