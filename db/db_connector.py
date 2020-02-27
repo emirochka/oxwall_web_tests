@@ -6,9 +6,7 @@ from value_object.user import User
 
 def _our_hash(password):
     d = {
-        "pass": "bf6116af8e4b3e83a7646640590b9d5f5c95b06bf7eebf6c424487ff39293833",
-        "test": "62fc22c0da68a727562013a405e45ad29fe67725db24870d8dff48a39b37f5ae",
-        "secret": "94d1297b55907d7158b27cd91f0d0b0d212abc0ccd4a3e861b1f4e1f404c67e0"
+        "pass": "0316253cadc886c3651c89cd8ad7177e6a0b00149df7550f9336342245259ccb"
     }
     return d[password]
 
