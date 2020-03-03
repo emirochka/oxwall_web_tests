@@ -81,7 +81,7 @@ if __name__ == "__main__":
     db = OxwallDB(host='localhost',
                   user='root',
                   password='mysql',
-                  db='oxwa166', )
+                  db='oxwa767', )
     try:
         user = User(username="dsf", password="secret", email="as@adsd.com")
         # print(db.create_user(user))
